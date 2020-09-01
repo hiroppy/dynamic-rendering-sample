@@ -1,0 +1,24 @@
+version: '3'
+services:
+  nginx:
+    build: nginx
+    ports:
+      - "8080:80"
+    depends_on:
+      - rendertron
+    networks:
+      frontend:
+  rendertron:
+    build: rendertron
+    ports:
+      - "8081:3000"
+    restart: always
+    networks:
+      frontend:
+  storage:
+    build: storage
+    restart: always
+    networks:
+      frontend:
+networks:
+  frontend:
