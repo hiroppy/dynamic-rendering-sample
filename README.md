@@ -26,6 +26,37 @@ This code using d3.js is too huge but rendertron was able to render as SSR.
 
 ![](./assets/network.png)
 
+### Performance 
+
+For users
+
+```shell
+ᐅ wrk -t12 -c20 -d30s http://127.0.0.1:8080
+Running 30s test @ http://127.0.0.1:8080
+  12 threads and 20 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    14.29ms    5.46ms 115.34ms   69.84%
+    Req/Sec    70.07     16.31   171.00     67.17%
+  25217 requests in 30.06s, 23.81MB read
+Requests/sec:    838.91
+Transfer/sec:    811.02KB
+```
+
+For bots
+
+```shell
+ᐅ wrk -t12 -c20 -d30s http://127.0.0.1:8080
+Running 30s test @ http://127.0.0.1:8080
+  12 threads and 20 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     0.00us    0.00us   0.00us     nan%
+    Req/Sec     0.00      0.00     0.00    100.00%
+  68 requests in 30.10s, 31.74MB read
+  Socket errors: connect 0, read 0, write 0, timeout 68
+Requests/sec:      2.26
+Transfer/sec:      1.05MB
+```
+
 ## Debug
 
 ```sh
