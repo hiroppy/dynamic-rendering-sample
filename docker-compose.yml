@@ -3,18 +3,20 @@ services:
   nginx:
     build: nginx
     ports:
-      - "8080:80"
+      - 8080:80
     depends_on:
       - rendertron
+    restart: always
     networks:
       frontend:
   rendertron:
     build: rendertron
     ports:
-      - "8081:3000"
+      - 8081-8099:3000
     restart: always
     networks:
       frontend:
+    scale: 10
   storage:
     build: storage
     restart: always

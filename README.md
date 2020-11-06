@@ -28,33 +28,74 @@ This code using d3.js is too huge but rendertron was able to render as SSR.
 
 ### Performance 
 
-For users
+The rendertron server scales to 10 pods. Also, this example page is heavy because it uses d3.js. https://observablehq.com/@d3/hierarchical-edge-bundling
+
+#### For users
 
 ```shell
 ᐅ wrk -t12 -c20 -d30s http://127.0.0.1:8080
 Running 30s test @ http://127.0.0.1:8080
   12 threads and 20 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    14.29ms    5.46ms 115.34ms   69.84%
-    Req/Sec    70.07     16.31   171.00     67.17%
-  25217 requests in 30.06s, 23.81MB read
-Requests/sec:    838.91
-Transfer/sec:    811.02KB
+    Latency    11.32ms    4.49ms  83.83ms   72.04%
+    Req/Sec    88.59     20.75   333.00     71.62%
+  31842 requests in 30.10s, 30.06MB read
+Requests/sec:   1057.83
+Transfer/sec:      1.00MB
 ```
 
-For bots
+#### For bots
 
 ```shell
-ᐅ wrk -t12 -c20 -d30s http://127.0.0.1:8080
+ᐅ wrk -t12 -c30 -d30s --timeout 10 http://127.0.0.1:8080
 Running 30s test @ http://127.0.0.1:8080
-  12 threads and 20 connections
+  12 threads and 30 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency     0.00us    0.00us   0.00us     nan%
+    Latency     8.86s     1.19s    9.91s    90.00%
+    Req/Sec     0.54      1.95    10.00     95.83%
+  48 requests in 30.08s, 22.12MB read
+  Socket errors: connect 0, read 0, write 0, timeout 38
+Requests/sec:      1.60
+Transfer/sec:    753.06KB
+```
+
+```shell
+ᐅ wrk -t12 -c15 -d30s --timeout 10 http://127.0.0.1:8080
+Running 30s test @ http://127.0.0.1:8080
+  12 threads and 15 connections  Thread Stats   Avg      Stdev     Max   +/- Stdevbind: address already in
+    Latency     6.36s     1.09s    9.44s    79.17%
     Req/Sec     0.00      0.00     0.00    100.00%
-  68 requests in 30.10s, 31.74MB read
-  Socket errors: connect 0, read 0, write 0, timeout 68
-Requests/sec:      2.26
-Transfer/sec:      1.05MB
+  49 requests in 30.10s, 22.58MB read
+  Socket errors: connect 0, read 0, write 0, timeout 1
+Requests/sec:      1.63
+Transfer/sec:    768.12KB
+```
+
+with chorme options to improve performance
+
+```shell
+ᐅ wrk -t12 -c30 -d30s --timeout 10 http://127.0.0.1:8080
+Running 30s test @ http://127.0.0.1:8080
+  12 threads and 30 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     7.82s     1.23s    9.80s    57.14%
+    Req/Sec     0.45      1.88    10.00     96.08%
+  51 requests in 30.06s, 23.04MB read
+  Socket errors: connect 0, read 0, write 0, timeout 30
+Requests/sec:      1.70
+Transfer/sec:    784.83KB
+```
+
+```shell
+ᐅ wrk -t12 -c15 -d30s --timeout 10 http://127.0.0.1:8080
+Running 30s test @ http://127.0.0.1:8080
+  12 threads and 15 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     4.85s     1.57s    9.13s    80.00%
+    Req/Sec     0.00      0.00     0.00    100.00%
+  65 requests in 30.10s, 29.95MB read
+Requests/sec:      2.16
+Transfer/sec:      0.99MB
 ```
 
 ## Debug
