@@ -9,5 +9,11 @@ RUN git clone https://github.com/GoogleChrome/rendertron.git
 WORKDIR rendertron
 RUN npm install
 RUN npm run build
-RUN echo '{ "puppeteerArgs": ["--headless", "--disable-gpu", "-remote-debugging-address=0.0.0.0", "--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage", "--disable-accelerated-2d-canvas", "--no-first-run", "--no-zygote", "--single-process"] }' > config.json
+RUN echo '{ "puppeteerArgs": \
+  ["--headless", "--disable-gpu", "-remote-debugging-address=0.0.0.0", "--no-sandbox", \
+  "--disable-setuid-sandbox", "--disable-dev-shm-usage", "--disable-accelerated-2d-canvas", \
+  "--no-first-run", "--no-zygote", "--single-process", "--blink-settings=imagesEnabled=false", \
+  "--disable-web-security", "--disable-desktop-notifications", "--disable-extensions", "--disable-gpu-driver-bug-workarounds", \
+  "--hide-scrollbars", "--ignore-certificate-errors", "disabled-by-default-memory-infra"] }' \
+  > config.json
 CMD ["npm", "start"]
