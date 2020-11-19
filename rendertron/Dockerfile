@@ -12,8 +12,10 @@ RUN npm run build
 RUN echo '{ "puppeteerArgs": \
   ["--headless", "--disable-gpu", "-remote-debugging-address=0.0.0.0", "--no-sandbox", "--disable-breakpad", \
   "--disable-setuid-sandbox", "--disable-dev-shm-usage", "--disable-gl-drawing-for-tests", \
-  "--disable-accelerated-2d-canvas",  "--disable-canvas-aa", "--disable-2d-canvas-clip-aa", \
-  "--no-first-run", "--no-zygote", "--single-process", "--blink-settings=imagesEnabled=false", \
+  "--disable-accelerated-2d-canvas",  "--disable-canvas-aa", "--disable-2d-canvas-clip-aa", "--disable-3d-apis", \
+  "--no-first-run", "--no-zygote", "--single-process", "--disable-account-consistency", \
+  "--disable-input-view", \
+  "--blink-settings=imagesEnabled=false,downloadableBinaryFontsEnabled=false,webSecurityEnabled=false,cookieEnabled=false", \
   "--disable-web-security", "--disable-desktop-notifications", "--disable-extensions", "--disable-gpu-driver-bug-workarounds", \
   "--disable-permissions-api", "--disable-sync", "--autoplay-policy=no-user-gesture-required", \
   "--hide-scrollbars", "--ignore-certificate-errors", "disabled-by-default-memory-infra"] }' \
